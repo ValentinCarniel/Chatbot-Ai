@@ -1,0 +1,9 @@
+body {
+    background-color: #f8f9fa; /* color suave de fondo */
+}
+
+#resultado {
+    font-weight: 600;
+    color: #198754; /* color verde bootstrap */
+    word-wrap: break-word;
+}
