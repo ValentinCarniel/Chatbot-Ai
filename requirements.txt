@@ -4,4 +4,8 @@ sqlalchemy
 pymysql             
 psycopg2-binary     
 python-multipart    
-openai              
+openai
+email-validator
+PyJWT
+passlib[bcrypt]
+python-dotenv

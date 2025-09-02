@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administración</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "admin-green": "#059669",
+              "admin-green-dark": "#047857",
+              "admin-green-light": "#10b981",
+            },
+          },
+        },
+      };
+    </script>
+    
+    <!-- Script de verificación de autenticación para admin -->
+    <script>
+      // Verificar si el usuario está autenticado como admin
+      (function() {
+        const token = localStorage.getItem("token");
+        const role = localStorage.getItem("role");
+        
+        if (!token) {
+          console.log("No hay token, redirigiendo a login...");
+          window.location.href = "/frontend/login.html";
+          return;
+        }
+        
+        if (role !== "admin") {
+          console.log("Usuario no es admin, redirigiendo a index...");
+          window.location.href = "/frontend/index.html";
+          return;
+        }
+        
+        console.log("Admin autenticado, continuando...");
+      })();
+    </script>
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-admin-green text-white px-6 py-6">
+      <div class="flex justify-between items-start">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h1 class="text-2xl font-semibold">Panel de Administración</h1>
+          </div>
+          <p class="text-green-100 text-sm">Gestión de Reclamos Vecinales</p>
+        </div>
+
+        <!-- Botones Exportar + Cerrar Sesión -->
+        <div class="flex gap-2">
+          <button
+            id="export-btn"
+            class="bg-white text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center gap-2"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Exportar
+          </button>
+
+          <button
+            id="cerrar-btn"
+            class="bg-white text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center gap-2"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm9 7a1 1 0 10-2 0v3h-3a1 1 0 100 2h3v3a1 1 0 102 0v-3h3a1 1 0 100-2h-3v-3z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Cerrar Sesión
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-6 py-8">
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div
+          class="bg-white rounded-lg shadow-sm p-6 border border-gray-200 text-center"
+        >
+          <div
+            id="total-reclamos"
+            class="text-4xl font-bold text-gray-800 mb-2"
+          >
+            0
+          </div>
+          <div class="text-gray-600 text-sm">Total Reclamos</div>
+        </div>
+        <div
+          class="bg-white rounded-lg shadow-sm p-6 border border-gray-200 text-center"
+        >
+          <div
+            id="reclamos-validos"
+            class="text-4xl font-bold text-gray-800 mb-2"
+          >
+            0
+          </div>
+          <div class="text-gray-600 text-sm">Reclamos Válidos</div>
+        </div>
+        <div
+          class="bg-white rounded-lg shadow-sm p-6 border border-gray-200 text-center"
+        >
+          <div
+            id="reclamos-invalidos"
+            class="text-4xl font-bold text-gray-800 mb-2"
+          >
+            0
+          </div>
+          <div class="text-gray-600 text-sm">Reclamos Inválidos</div>
+        </div>
+        <div
+          class="bg-white rounded-lg shadow-sm p-6 border border-gray-200 text-center"
+        >
+          <div
+            id="categorias-activas"
+            class="text-4xl font-bold text-gray-800 mb-2"
+          >
+            0
+          </div>
+          <div class="text-gray-600 text-sm">Categorías Activas</div>
+        </div>
+      </div>
+
+      <!-- Filtros y Categorías -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <!-- Filtro -->
+        <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+          <div class="flex items-center gap-2 mb-2">
+            <svg
+              class="w-5 h-5 text-gray-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+              />
+            </svg>
+            <h3 class="font-semibold text-gray-800">Filtros</h3>
+          </div>
+          <input
+            type="text"
+            id="filtro-reclamos"
+            placeholder="Buscar en reclamos..."
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-green focus:border-transparent outline-none"
+          />
+        </div>
+
+        <!-- Categorías -->
+        <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+          <div class="flex items-center gap-2 mb-2">
+            <svg
+              class="w-5 h-5 text-gray-600"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"
+              />
+            </svg>
+            <h3 class="font-semibold text-gray-800">Categorías</h3>
+          </div>
+          <div id="categorias-container" class="flex gap-3 flex-wrap">
+            <!-- Los botones de categorías se generarán dinámicamente -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenedor de Reclamos -->
+      <div id="reclamos-container" class="space-y-6">
+        <!-- Los reclamos se cargarán dinámicamente desde JS -->
+      </div>
+    </main>
+
+    <script src="admin.js"></script>
+    <script src="cerrarsesion.js"></script>
+  </body>
+</html>

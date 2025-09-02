@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Panel de Administración</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .bg-pattern {
+        background-image: radial-gradient(
+            circle at 25% 25%,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 75% 75%,
+            rgba(255, 255, 255, 0.05) 0%,
+            transparent 50%
+          );
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen bg-gradient-to-br from-green-600 via-green-700 to-green-800 bg-pattern"
+  >
+    <div class="min-h-screen flex">
+      <!-- Lado izquierdo - Información -->
+      <div
+        class="hidden lg:flex lg:w-1/2 flex-col justify-center items-center p-12 text-white"
+      >
+        <div class="max-w-md text-center">
+          <div class="mb-8">
+            <div
+              class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <h1 class="text-4xl font-bold mb-4">Panel de Administración</h1>
+            <p class="text-xl text-green-100">Gestión de Reclamos Vecinales</p>
+          </div>
+          <div class="space-y-4 text-green-100">
+            <div class="flex items-center justify-center space-x-3">
+              <div class="w-2 h-2 bg-green-300 rounded-full"></div>
+              <span>Gestión eficiente de reclamos</span>
+            </div>
+            <div class="flex items-center justify-center space-x-3">
+              <div class="w-2 h-2 bg-green-300 rounded-full"></div>
+              <span>Seguimiento en tiempo real</span>
+            </div>
+            <div class="flex items-center justify-center space-x-3">
+              <div class="w-2 h-2 bg-green-300 rounded-full"></div>
+              <span>Reportes y estadísticas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lado derecho - Formulario de Login -->
+      <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
+        <div class="w-full max-w-md">
+          <div class="bg-white rounded-2xl shadow-2xl p-8">
+            <!-- Header del formulario -->
+            <div class="text-center mb-8">
+              <div
+                class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  ></path>
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                Iniciar Sesión
+              </h2>
+              <p class="text-gray-600">Accede a tu panel de administración</p>
+            </div>
+
+            <!-- Formulario -->
+            <form id="loginForm" class="space-y-6" onsubmit="return false;">
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Correo Electrónico
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                  placeholder="admin@ejemplo.com"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="password"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Contraseña
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                  placeholder="••••••••"
+                />
+              </div>
+
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="remember"
+                    name="remember"
+                    class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                  />
+                  <label for="remember" class="ml-2 text-sm text-gray-600">
+                    Recordarme
+                  </label>
+                </div>
+                <a
+                  href="#"
+                  class="text-sm text-green-600 hover:text-green-700 font-medium"
+                >
+                  ¿Olvidaste tu contraseña?
+                </a>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors"
+              >
+                Iniciar Sesión
+              </button>
+            </form>
+
+            <!-- Footer del formulario -->
+            <div class="mt-8 text-center">
+              <p class="text-sm text-gray-600">
+                ¿Necesitas ayuda?
+                <a
+                  href="#"
+                  class="text-green-600 hover:text-green-700 font-medium"
+                >
+                  Contacta soporte
+                </a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Información adicional en móvil -->
+          <div class="lg:hidden mt-8 text-center text-white">
+            <h3 class="text-lg font-semibold mb-2">Panel de Administración</h3>
+            <p class="text-green-100 text-sm">Gestión de Reclamos Vecinales</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/frontend/login.js"></script>
+  </body>
+</html>
