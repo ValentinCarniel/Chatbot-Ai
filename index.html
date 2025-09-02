@@ -174,43 +174,43 @@
     </div>
 
     <script src="script.js"></script>
-    
+
     <!-- Script de debug para cerrar sesión -->
     <script>
       // Debug del botón de cerrar sesión
       document.addEventListener("DOMContentLoaded", () => {
         console.log("🔍 Debug: Verificando botón de cerrar sesión...");
-        
+
         const cerrarBtn = document.getElementById("cerrar-btn");
         console.log("🔍 Botón encontrado:", !!cerrarBtn);
-        
+
         if (cerrarBtn) {
           // Agregar event listener adicional para debug
           cerrarBtn.addEventListener("click", (e) => {
             console.log("🔍 Botón de cerrar sesión clickeado!");
             e.preventDefault();
-            
+
             // Verificar localStorage
             const token = localStorage.getItem("token");
             const role = localStorage.getItem("role");
             console.log("🔍 Token:", !!token, "Rol:", role);
-            
+
             if (token) {
               console.log("🔍 Cerrando sesión...");
               localStorage.removeItem("token");
               localStorage.removeItem("role");
               console.log("🔍 localStorage limpiado");
-              
+
               // Redirigir
               setTimeout(() => {
-                window.location.href = "/frontend/login.html";
+                window.location.href = "login.html";
               }, 1000);
             } else {
               console.log("🔍 No hay token, redirigiendo directamente");
-              window.location.href = "/frontend/login.html";
+              window.location.href = "login.html";
             }
           });
-          
+
           console.log("🔍 Event listener de debug agregado");
         } else {
           console.error("🔍 ERROR: Botón de cerrar sesión no encontrado!");
